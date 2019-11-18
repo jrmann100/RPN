@@ -3,9 +3,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-class gui {
+class UI {
     public static void main(String args[]) {
-        Interpreter interp = new Intepreter();
+        final Interpreter interp = new Interpreter();
         Color black = new Color(44, 44, 46);
         Color white = Color.white;
         JFrame frame = new JFrame("RPN");
@@ -14,16 +14,16 @@ class gui {
         frame.getContentPane().setBackground(black);
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, black));
 
-        JLabel label = new JLabel("<html>0<br>0<br>0<br>0</html>");
+        final JLabel label = new JLabel("<html>T<br>Z<br>Y</html>");
         label.setBackground(black);
         label.setForeground(white);
-        JTextArea ta = new JTextArea();
+        final JTextArea ta = new JTextArea();
         ta.addKeyListener(new KeyListener() {
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == '\n'){
-                    interp.(ta.getText());
+                    interp.cmd(ta.getText().replace("\n",""));
                     ta.setText("");
-                    label.setText("<html>"+interp.toString();"</html>");
+                    label.setText("<html>"+interp.toString().replace("\n", "<br>")+"</html>");
                 };
             }
             public void keyReleased(KeyEvent e) {

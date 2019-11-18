@@ -5,17 +5,11 @@ import java.util.Arrays;
 public class Stack {
     private double[] stack;
     private int sp;
-    private int size;
-
+    
     public Stack(int givenSize){
-        stack = new double[size];
+        stack = new double[givenSize];
         Arrays.fill(stack, 0);
-        sp = 0; //?
-        size = givenSize;
-    }
-
-    public int getSize(){
-        return size;
+        sp = 0;
     }
 
     public void push(double number) throws BufferUnderflowException, BufferOverflowException{

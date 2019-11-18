@@ -2,12 +2,12 @@ public class Interpreter {
     // Last command. Allows for blank command to execute last command.
     private static String lastCmd = "";
     // 4-register stack.
-    private static Stack stack;
-    private static int stackSize;
+    private Stack stack;
+    public final int stackSize;
 
-    public Interpreter(Stack givenStack) {
-        stack = givenStack;
-        stackSize = givenStack.getSize();
+    public Interpreter(int givenStackSize) {
+        stack = new Stack(givenStackSize);
+        stackSize = givenStackSize;
     }
 
     public Interpreter() {
@@ -15,6 +15,10 @@ public class Interpreter {
         stackSize = 3;
     }
 
+    public Stack getStack() {
+   	 return stack;
+    }
+    
     // Check whether a command is a number.
     public static boolean isNumber(String cmd) {
         try {
@@ -26,7 +30,7 @@ public class Interpreter {
     }
 
     // Execute command.
-    public static void cmd(String cmd) {
+    public void cmd(String cmd) {
         String[] subcmds = cmd.split(" ");
         if (subcmds.length > 1) {
             for (String subcmd : subcmds) {
