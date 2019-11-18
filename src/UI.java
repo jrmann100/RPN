@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-class gui implements KeyListener {
+class gui {
     public static void main(String args[]) {
         Color black = new Color(44, 44, 46);
         Color white = Color.white;

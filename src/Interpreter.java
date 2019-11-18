@@ -4,16 +4,24 @@ public class Interpreter {
     // Last command. Allows for blank command to execute last command.
     private static String lastCmd = "";
     // 4-register stack.
-    private static double[] stack = { 0, 0, 0, 0 };
+    private static Stack stack;
+    private static final int stackSize = 4;
+    public Interpreter(Stack givenStack){
+        stack = givenStack;
+    }
+    public Interpreter(){
+        stack = new Stack(4);
+    }
 
     public static void main(String[] args) {
+        stack = new Stack(4);
         Scanner scan = new Scanner(System.in);
         while (true) {
             // Clear screen.
-            //System.out.print("\033[H\033[2J");
+            System.out.print("\033[H\033[2J");
             // Print out each register.
-            for (int i = stack.length - 1; i >= 0; i--) {
-                System.out.printf("%c: %.2f\n", new char[] { 'X', 'Y', 'Z', 'T' }[i], stack[i]);
+            for (int i = stack.depth() - 1;i>=0;i--) {
+                System.out.printf("%c: %.2f\n", new char[] { 'X', 'Y', 'Z', 'T' }[i], stack.peek(i));
             }
             // Get and execute command.
             System.out.print("> ");
@@ -21,21 +29,6 @@ public class Interpreter {
         }
         // There is currently no way to end the program.
         // scan.close();
-    }
-
-    // Shift stack up. Preserve X register.
-    public static void sup() {
-        for (int i = stack.length - 1; i >= 1; i--) {
-            stack[i] = stack[i - 1];
-        }
-    }
-
-    // Shift stack down. Preserve X register.
-    public static void sdown() {
-        for (int i = 1; i < stack.length - 1; i++) {
-            stack[i] = stack[i + 1];
-        }
-        stack[stack.length - 1] = 0;
     }
 
     // Check whether a command is a number.
@@ -61,20 +54,15 @@ public class Interpreter {
             cmd = lastCmd;
         }
         if (isNumber(cmd)) {
-            sup();
-            stack[0] = Double.parseDouble(cmd);
+            stack.push(Double.parseDouble(cmd));
         } else if (cmd.equals("+")) {
-            stack[0] = stack[1] + stack[0];
-            sdown();
+            stack.push(stack.pop() + stack.pop());
         } else if (cmd.equals("-")) {
-            stack[0] = stack[1] - stack[0];
-            sdown();
+            stack.push(stack.pop() - stack.pop());
         } else if (cmd.equals("*")) {
-            stack[0] = stack[1] * stack[0];
-            sdown();
+            stack.push(stack.pop() * stack.pop());
         } else if (cmd.equals("/")) {
-            stack[0] = stack[1] / stack[0];
-            sdown();
+            stack.push(stack.pop() / stack.pop());
         }
         lastCmd = cmd;
     }
