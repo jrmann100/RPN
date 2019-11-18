@@ -10,7 +10,7 @@ public class Interpreter {
         Scanner scan = new Scanner(System.in);
         while (true) {
             // Clear screen.
-            System.out.print("\033[H\033[2J");
+            //System.out.print("\033[H\033[2J");
             // Print out each register.
             for (int i = stack.length - 1; i >= 0; i--) {
                 System.out.printf("%c: %.2f\n", new char[] { 'X', 'Y', 'Z', 'T' }[i], stack[i]);
@@ -50,6 +50,13 @@ public class Interpreter {
 
     // Execute command.
     public static void cmd(String cmd) {
+        String[] subcmds = cmd.split(" ");
+        if (subcmds.length > 1){
+            for (String subcmd : subcmds){
+                cmd(subcmd);
+            }
+            return;
+        }
         if (cmd.length() == 0) {
             cmd = lastCmd;
         }
