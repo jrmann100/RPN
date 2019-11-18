@@ -1,34 +1,18 @@
-import java.util.Scanner;
-
 public class Interpreter {
     // Last command. Allows for blank command to execute last command.
     private static String lastCmd = "";
     // 4-register stack.
     private static Stack stack;
-    private static final int stackSize = 4;
-    public Interpreter(Stack givenStack){
+    private static int stackSize;
+
+    public Interpreter(Stack givenStack) {
         stack = givenStack;
-    }
-    public Interpreter(){
-        stack = new Stack(4);
+        stackSize = givenStack.getSize();
     }
 
-    public static void main(String[] args) {
-        stack = new Stack(4);
-        Scanner scan = new Scanner(System.in);
-        while (true) {
-            // Clear screen.
-            System.out.print("\033[H\033[2J");
-            // Print out each register.
-            for (int i = stack.depth() - 1;i>=0;i--) {
-                System.out.printf("%c: %.2f\n", new char[] { 'X', 'Y', 'Z', 'T' }[i], stack.peek(i));
-            }
-            // Get and execute command.
-            System.out.print("> ");
-            cmd(scan.nextLine());
-        }
-        // There is currently no way to end the program.
-        // scan.close();
+    public Interpreter() {
+        stack = new Stack(3);
+        stackSize = 3;
     }
 
     // Check whether a command is a number.
@@ -44,8 +28,8 @@ public class Interpreter {
     // Execute command.
     public static void cmd(String cmd) {
         String[] subcmds = cmd.split(" ");
-        if (subcmds.length > 1){
-            for (String subcmd : subcmds){
+        if (subcmds.length > 1) {
+            for (String subcmd : subcmds) {
                 cmd(subcmd);
             }
             return;
@@ -62,8 +46,20 @@ public class Interpreter {
         } else if (cmd.equals("*")) {
             stack.push(stack.pop() * stack.pop());
         } else if (cmd.equals("/")) {
-            stack.push(stack.pop() / stack.pop());
+            stack.push(1 / stack.pop() * stack.pop());
         }
         lastCmd = cmd;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = stackSize - 1; i >= stack.depth(); i--) {
+            output += String.format("%c\n", new char[] { 'Y', 'Z', 'T' }[i]);
+        }
+        for (int i = stack.depth() - 1; i >= 0; i--) {
+            output += String.format("%c: %.2f\n", new char[] { 'Y', 'Z', 'T' }[i], stack.peek(i));
+        }
+        return output;
     }
 }

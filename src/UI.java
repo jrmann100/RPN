@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 class gui {
     public static void main(String args[]) {
+        Interpreter interp = new Intepreter();
         Color black = new Color(44, 44, 46);
         Color white = Color.white;
         JFrame frame = new JFrame("RPN");
@@ -20,8 +21,9 @@ class gui {
         ta.addKeyListener(new KeyListener() {
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == '\n'){
-                    execCmd(ta.getText());
+                    interp.(ta.getText());
                     ta.setText("");
+                    label.setText("<html>"+interp.toString();"</html>");
                 };
             }
             public void keyReleased(KeyEvent e) {
@@ -36,8 +38,5 @@ class gui {
         frame.getContentPane().add(BorderLayout.NORTH, label);
 
         frame.setVisible(true);
-    }
-    public static void execCmd(String cmd){
-        System.out.println("command is " + cmd);
     }
 }
