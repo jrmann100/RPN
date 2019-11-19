@@ -60,11 +60,11 @@ public class Interpreter {
     @Override
     public String toString() {
         String output = "";
-        for (int i = stackSize - 1; i >= stack.depth(); i--) {
-            output += String.format("%d%n", i);
+        for (int i = stack.depth(); i < stackSize; i++) {
+            output += String.format("%n");
         }
         for (int i = 0; i < stack.depth(); i++) {
-            output += String.format("%d: %.2f%n", stack.depth() - i, stack.peek(i));
+            output += String.format("%d: %.2f%n", i, stack.peek(i));
         }
         return output;
     }
