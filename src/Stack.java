@@ -12,7 +12,10 @@ public class Stack {
         sp = 0;
     }
 
-    public void push(double number) throws BufferUnderflowException, BufferOverflowException{
+    public void push(double number) throws BufferUnderflowException, BufferOverflowException {
+        if (sp == stack.length) { // Is this allowed here? Or do I do this in the Interpreter? This must be wrong.
+      	  pick(0);
+        }
         stack[sp++] = number;
     }
 
@@ -30,7 +33,8 @@ public class Stack {
 
     public double pick(int n){
     	double popped = stack[n];
-    	for (int i = n; i <= sp; i++) {
+    	sp--;
+    	for (int i = n; i < sp; i++) {
     		stack[i] = stack[i + 1];
     	}
     	return popped;

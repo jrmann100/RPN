@@ -5,16 +5,16 @@ import java.awt.event.KeyListener;
 
 class UI {
     public static void main(String args[]) {
-        final Interpreter interp = new Interpreter();
+        final Interpreter interp = new Interpreter(5);
         Color black = new Color(44, 44, 46);
         Color white = Color.white;
         JFrame frame = new JFrame("RPN");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 125);
+        frame.setSize(500, 155);
         frame.getContentPane().setBackground(black);
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, black));
 
-        final JLabel label = new JLabel("<html>T<br>Z<br>Y</html>");
+        final JLabel label = new JLabel("<html></html>");
         label.setBackground(black);
         label.setForeground(white);
         final JTextArea ta = new JTextArea();
