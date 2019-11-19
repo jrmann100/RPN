@@ -29,6 +29,10 @@ public class Stack {
     }
 
     public double pick(int n){
-        return stack[n];
+    	double popped = stack[n];
+    	for (int i = n; i <= sp; i++) {
+    		stack[i] = stack[i + 1];
+    	}
+    	return popped;
     }
 }

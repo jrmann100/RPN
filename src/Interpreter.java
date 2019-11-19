@@ -52,7 +52,7 @@ public class Interpreter {
         } else if (cmd.equals("/")) {
             stack.push(1 / stack.pop() * stack.pop());
         } else if (cmd.startsWith("pick")) {
-            stack.push(stack.pick(Integer.parseInt(cmd.substring(4))));
+            stack.pick(Integer.parseInt(cmd.substring(4)));
         }
         lastCmd = cmd;
     }
