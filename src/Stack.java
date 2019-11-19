@@ -27,4 +27,8 @@ public class Stack {
     public int depth(){
         return sp;
     }
+
+    public double pick(int n){
+        return stack[n];
+    }
 }

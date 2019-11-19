@@ -51,6 +51,8 @@ public class Interpreter {
             stack.push(stack.pop() * stack.pop());
         } else if (cmd.equals("/")) {
             stack.push(1 / stack.pop() * stack.pop());
+        } else if (cmd.startsWith("pick")) {
+            stack.push(stack.pick(Integer.parseInt(cmd.substring(4))));
         }
         lastCmd = cmd;
     }
@@ -59,10 +61,10 @@ public class Interpreter {
     public String toString() {
         String output = "";
         for (int i = stackSize - 1; i >= stack.depth(); i--) {
-            output += String.format("%c\n", new char[] { 'Y', 'Z', 'T' }[i]);
+            output += String.format("%d%n", i);
         }
-        for (int i = stack.depth() - 1; i >= 0; i--) {
-            output += String.format("%c: %.2f\n", new char[] { 'Y', 'Z', 'T' }[i], stack.peek(i));
+        for (int i = 0; i < stack.depth(); i++) {
+            output += String.format("%d: %.2f%n", stack.depth() - i, stack.peek(i));
         }
         return output;
     }
