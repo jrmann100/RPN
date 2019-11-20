@@ -52,6 +52,14 @@ public class Interpreter {
             stack.push(stack.pop() * stack.pop());
         } else if (cmd.equals("/")) {
             stack.push(1 / stack.pop() * stack.pop());
+        } else if (cmd.equals("^")) {
+            double power = stack.pop();
+            double base = stack.pop();
+            stack.push(Math.pow(base, power));
+        } else if (cmd.equals("pi")) {
+            stack.push(Math.PI);
+        } else if (cmd.equals("e")) {
+            stack.push(Math.E);
         } else if (cmd.startsWith("pick")) {
             stack.pick(Integer.parseInt(cmd.substring(4)));
         }
