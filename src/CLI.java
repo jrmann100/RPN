@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+// Command line interface.
+// A basic interface for the Interpreter.
 public class CLI {
 	
     public static void main(String[] args) {
