@@ -8,8 +8,11 @@ public class CLI {
         Interpreter interp = new Interpreter(5);
 
         Scanner scan = new Scanner(System.in);
-        
-        do {
+        // Clear screen. This doesn't work in Eclipse.
+        System.out.print("\033[H\033[2J");
+        System.out.println();
+        System.out.print(interp + "> ");
+        while (scan.hasNextLine()) {
             try {
 				interp.cmd(scan.nextLine());
 			} catch (RPNStackOverflowException | RPNStackUnderflowException e) {
@@ -20,8 +23,8 @@ public class CLI {
             System.out.println();
             // Print out each register.
             System.out.print(interp + "> ");
-        } while (scan.hasNextLine());
-        //Unreachable quit!
-        //scan.close();
+        }
+        scan.close();
+        System.out.println("Goodbye.");
     }
 }
