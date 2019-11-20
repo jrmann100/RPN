@@ -8,21 +8,20 @@ public class CLI {
         Interpreter interp = new Interpreter(5);
 
         Scanner scan = new Scanner(System.in);
-        while (true) {
+        
+        do {
+            try {
+				interp.cmd(scan.nextLine());
+			} catch (RPNStackOverflowException | RPNStackUnderflowException e) {
+	        	System.out.printf("Stack exception: %s\nReturn to continue >", e.getMessage());
+			}
             // Clear screen. This doesn't work in Eclipse.
             System.out.print("\033[H\033[2J");
             System.out.println();
             // Print out each register.
             System.out.print(interp + "> ");
-            // Get and execute command.
-            try {
-				interp.cmd(scan.nextLine());
-			} catch (RPNStackOverflowException | RPNStackUnderflowException e) {
-	        	System.out.printf("Stack exception: %s\nReturn to continue >", e.getMessage());
-	        	scan.nextLine();
-			}
-        }
-        // There is currently no way to end the program.
-        // scan.close();
+        } while (scan.hasNextLine());
+        //Unreachable quit!
+        //scan.close();
     }
 }
