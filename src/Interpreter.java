@@ -30,7 +30,7 @@ public class Interpreter {
     }
 
     // Execute command.
-    public void cmd(String cmd) {
+    public void cmd(String cmd) throws RPNStackOverflowException, RPNStackUnderflowException {
         String[] subcmds = cmd.split(" ");
         if (subcmds.length > 1) {
             for (String subcmd : subcmds) {
@@ -41,6 +41,7 @@ public class Interpreter {
         if (cmd.length() == 0) {
             cmd = lastCmd;
         }
+        try {
         if (isNumber(cmd)) {
             stack.push(Double.parseDouble(cmd));
         } else if (cmd.equals("+")) {
@@ -55,6 +56,10 @@ public class Interpreter {
             stack.pick(Integer.parseInt(cmd.substring(4)));
         }
         lastCmd = cmd;
+        }
+        catch (RPNStackOverflowException | RPNStackUnderflowException e) {
+        	throw(e);
+        }
     }
 
     @Override

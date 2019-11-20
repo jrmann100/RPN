@@ -21,7 +21,11 @@ class UI {
         ta.addKeyListener(new KeyListener() {
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == '\n'){
-                    interp.cmd(ta.getText().replace("\n",""));
+                    try {
+						interp.cmd(ta.getText().replace("\n",""));
+					} catch (RPNStackOverflowException | RPNStackUnderflowException exception) {
+						JOptionPane.showMessageDialog(null, "Stack exception: " + exception.getMessage());
+					}
                     ta.setText("");
                     label.setText("<html>"+interp.toString().replace("\n", "<br>")+"</html>");
                 };

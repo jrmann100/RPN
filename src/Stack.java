@@ -1,6 +1,7 @@
 import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 
 public class Stack {
     private double[] stack;
@@ -12,14 +13,17 @@ public class Stack {
         sp = 0;
     }
 
-    public void push(double number) throws BufferUnderflowException, BufferOverflowException {
-        if (sp == stack.length) { // Is this allowed here? Or do I do this in the Interpreter? This must be wrong.
-      	  pick(0);
-        }
+    public void push(double number) throws RPNStackOverflowException {
+    	if (sp + 1 == stack.length) {
+    		throw new RPNStackOverflowException("Tried to push() to a full stack.");
+    	}
         stack[sp++] = number;
     }
 
-    public double pop() throws BufferUnderflowException, BufferOverflowException {
+    public double pop() throws RPNStackUnderflowException {
+    	if (sp == 0) {
+    		throw new RPNStackUnderflowException("Tried to pop() an empty stack.");
+    	}
         return stack[--sp];
     }
 
