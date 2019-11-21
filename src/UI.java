@@ -25,6 +25,8 @@ class UI {
 						interp.cmd(ta.getText().replace("\n",""));
 					} catch (RPNStackOverflowException | RPNStackUnderflowException exception) {
 						JOptionPane.showMessageDialog(null, "Stack exception: " + exception.getMessage());
+					}  catch (IllegalArgumentException exception) {
+						System.out.printf("Interpreter exception: " + exception.getMessage());
 					}
                     ta.setText("");
                     label.setText("<html>"+interp.toString().replace("\n", "<br>")+"</html>");

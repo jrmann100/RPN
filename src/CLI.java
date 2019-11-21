@@ -17,6 +17,10 @@ public class CLI {
 				interp.cmd(scan.nextLine());
 			} catch (RPNStackOverflowException | RPNStackUnderflowException e) {
 	        	System.out.printf("Stack exception: %s\nReturn to continue >", e.getMessage());
+	            scan.nextLine();
+			} catch (IllegalArgumentException e) {
+				System.out.printf("Interpreter exception: %s\nReturn to continue >", e.getMessage());
+	            scan.nextLine();
 			}
             // Clear screen. This doesn't work in Eclipse.
             System.out.print("\033[H\033[2J");
