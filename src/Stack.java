@@ -32,7 +32,10 @@ public class Stack {
 		return sp;
 	}
 
-	public double pick(int n) {
+	public double pick(int n) throws RPNStackUnderflowException {
+		if (sp == 0) {
+			throw new RPNStackUnderflowException("Tried to pick() an empty stack.");
+		}
 		sp--;
 		double popped = stack[sp - n];
 		for (int i = sp - n; i < sp; i++) {
@@ -41,7 +44,7 @@ public class Stack {
 		return popped;
 	}
 
-	public void rotn(int n) throws RPNStackOverflowException {
+	public void rotn(int n) throws RPNStackOverflowException, RPNStackUnderflowException {
 		push(pick(n));
 	}
 
@@ -54,7 +57,7 @@ public class Stack {
 		push(s2);
 	}
 	
-	public void roll() throws RPNStackOverflowException {
+	public void roll() throws RPNStackOverflowException, RPNStackUnderflowException {
 		push(pick(sp - 1));
 	}
 
